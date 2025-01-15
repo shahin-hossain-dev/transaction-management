@@ -10,18 +10,43 @@ import TransactionModal from "./TransactionModal";
 import { useState } from "react";
 import { TransactionData } from "@/types/Transaction";
 import { Badge } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 type TransactionProps = {
   transactionData: TransactionData[];
+  refetch: () => void;
 };
 
-const TransactionTable: React.FC<TransactionProps> = ({ transactionData }) => {
+const TransactionTable: React.FC<TransactionProps> = ({
+  transactionData,
+  refetch,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<TransactionData>();
 
   const handleModal = (singleData: TransactionData) => {
     setModalOpen(true);
     setModalData(singleData);
+  };
+
+  const mutation = useMutation({
+    mutationFn: async ({ id, status }: { id: unknown; status: string }) => {
+      const response = await axios.patch(`/api/transactions/${id}`, status);
+      return response.data;
+    },
+    onSuccess: () => {
+      setModalOpen(false);
+      refetch();
+    },
+  });
+
+  const handleUpdate = () => {
+    mutation.mutate({ id: modalData?.id, status: "approved" });
+  };
+
+  const handleRejected = () => {
+    mutation.mutate({ id: modalData?.id, status: "rejected" });
   };
 
   return (
@@ -114,6 +139,8 @@ const TransactionTable: React.FC<TransactionProps> = ({ transactionData }) => {
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         modalData={modalData}
+        handleUpdate={handleUpdate}
+        handleRejected={handleRejected}
       />
     </div>
   );

@@ -20,12 +20,16 @@ type ModalProps = {
   modalOpen: boolean;
   modalData: TransactionData | undefined;
   setModalOpen: (action: boolean) => void;
+  handleUpdate: () => void;
+  handleRejected: () => void;
 };
 
 const TransactionModal: React.FC<ModalProps> = ({
   modalOpen,
   setModalOpen,
   modalData,
+  handleUpdate,
+  handleRejected,
 }) => {
   const handleClose = () => setModalOpen(false);
 
@@ -79,12 +83,18 @@ const TransactionModal: React.FC<ModalProps> = ({
             {modalData?.status === "pending" ? (
               <div className="flex gap-3 justify-between">
                 <div className="w-full">
-                  <button className="text-white text-lg w-full bg-zinc-900 px-5  py-2">
+                  <button
+                    onClick={handleUpdate}
+                    className="text-white text-lg w-full bg-zinc-900 px-5  py-2"
+                  >
                     Approve
                   </button>
                 </div>
                 <div className="w-full">
-                  <button className=" text-lg w-full border border-zinc-900 px-5  py-2">
+                  <button
+                    onClick={handleRejected}
+                    className=" text-lg w-full border border-zinc-900 px-5  py-2"
+                  >
                     Reject
                   </button>
                 </div>

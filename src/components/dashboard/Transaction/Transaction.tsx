@@ -5,7 +5,11 @@ import TransactionTable from "./TransactionTable";
 import axios from "axios";
 
 const Transaction = () => {
-  const { data: transactionData, isLoading } = useQuery({
+  const {
+    data: transactionData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["transactionData"],
     queryFn: async () => {
       const res = await axios.get("/data/transaction.json");
@@ -21,8 +25,8 @@ const Transaction = () => {
 
   return (
     <div>
-      <h2>Transaction</h2>
-      <TransactionTable transactionData={transactionData} />
+      <h2 className="font-semibold text-2xl text-zinc-900 mb-5">Transaction</h2>
+      <TransactionTable transactionData={transactionData} refetch={refetch} />
     </div>
   );
 };
