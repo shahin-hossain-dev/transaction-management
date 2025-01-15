@@ -1,14 +1,30 @@
-'use client'
+"use client";
 
+import { useQuery } from "@tanstack/react-query";
 import TransactionTable from "./TransactionTable";
+import axios from "axios";
 
 const Transaction = () => {
-    return (
-        <div>
-            <h2>Transaction</h2>
-            <TransactionTable/>
-        </div>
-    );
+  const { data: transactionData, isLoading } = useQuery({
+    queryKey: ["transactionData"],
+    queryFn: async () => {
+      const res = await axios.get("/data/transaction.json");
+      if (!res.data) throw new Error("Network response was not ok");
+      console.log(res.data);
+      return res.data;
+    },
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <h2>Transaction</h2>
+      <TransactionTable transactionData={transactionData} />
+    </div>
+  );
 };
 
 export default Transaction;

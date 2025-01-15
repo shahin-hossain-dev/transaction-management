@@ -1,7 +1,10 @@
-export type Transaction = {
+export type TransactionData = {
   id: string;
-  userId: string;
+  name: string;
+  email: string;
   amount: number;
-  status: "Pending" | "Approved" | "Rejected";
-  createdAt: string;
+  date: string;
+  status: "pending" | "approved" | "rejected";
+  image: string;
+  currency: string;
 };
