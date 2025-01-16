@@ -32,6 +32,7 @@ const TransactionTable: React.FC<TransactionProps> = ({
 
   const mutation = useMutation({
     mutationFn: async ({ id, status }: { id: unknown; status: string }) => {
+      // have to set patch request api route
       const response = await axios.patch(`/api/transactions/${id}`, status);
       return response.data;
     },

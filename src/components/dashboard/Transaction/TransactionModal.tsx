@@ -59,7 +59,7 @@ const TransactionModal: React.FC<ModalProps> = ({
             <div className="flex gap-3 justify-between">
               <div>
                 <p className="text-lg font-medium text-zinc-900 mb-2">From:</p>
-                <p className="">example@gmail.com</p>
+                <p className="">{modalData?.email}</p>
               </div>
               <div>
                 <p className="text-lg font-medium mb-2 text-zinc-900 ">
@@ -77,7 +77,7 @@ const TransactionModal: React.FC<ModalProps> = ({
               </div>
               <div>
                 <p className="text-lg font-medium mb-2 text-zinc-900">Date:</p>
-                <p className="">2025-01-15</p>
+                <p className="">{modalData?.date}</p>
               </div>
             </div>
             {modalData?.status === "pending" ? (

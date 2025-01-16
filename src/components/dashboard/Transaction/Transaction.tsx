@@ -12,6 +12,7 @@ const Transaction = () => {
   } = useQuery({
     queryKey: ["transactionData"],
     queryFn: async () => {
+      // set backend api for all transaction
       const res = await axios.get("/data/transaction.json");
       if (!res.data) throw new Error("Network response was not ok");
       console.log(res.data);
