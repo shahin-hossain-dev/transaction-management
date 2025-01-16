@@ -57,11 +57,11 @@ const TransactionModal: React.FC<ModalProps> = ({
           </div>
           <div className="px-2 py-3 space-y-5">
             <div className="flex gap-3 justify-between">
-              <div>
+              <div className="overflow-hidden flex-1">
                 <p className="text-lg font-medium text-zinc-900 mb-2">From:</p>
-                <p className="">{modalData?.email}</p>
+                <p className="truncate">{modalData?.email}</p>
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="text-lg font-medium mb-2 text-zinc-900 ">
                   Transaction Id:
                 </p>
